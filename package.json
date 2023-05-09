@@ -1,7 +1,6 @@
 {
   "name": "@dokuji/i18n",
-  "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Steven Salaun",
   "license": "MIT",
   "files": [
@@ -9,21 +8,23 @@
   ],
   "main": "./dist/i18n.umd.js",
   "module": "./dist/i18n.es.js",
-  "types": "dist/main.d.ts",
+  "types": "./dist/main.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/main.d.ts",
       "import": "./dist/i18n.es.js",
       "require": "./dist/i18n.umd.js"
     }
   },
   "scripts": {
     "test": "jest",
-    "build": "rm -rf dist/* && tsc && vite build",
+    "build": "rm -rf dist/* && npm run test && tsc && vite build",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@types/lodash.get": "^4.4.7",
+    "@types/lodash.merge": "^4.6.7",
     "@types/mustache": "^4.1.2",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
@@ -41,6 +42,7 @@
   },
   "dependencies": {
     "lodash.get": "^4.4.2",
+    "lodash.merge": "^4.6.2",
     "mustache": "^4.2.0"
   },
   "publishConfig": {

@@ -15,7 +15,8 @@ module.exports = defineConfig({
       // into your library
       external: [
         'mustache',
-        'lodash.get'
+        'lodash.get',
+        'lodash.merge'
       ],
       output: {
         // Provide global variables to use in the UMD build

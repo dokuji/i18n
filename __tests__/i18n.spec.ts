@@ -15,6 +15,16 @@ const en = {
   }
 }
 
+const en2 = {
+  a: 'en-a2',
+  d: 'en-d',
+  c: {
+    c: {
+      d: 'en-ccd'
+    }
+  }
+}
+
 const fr: DeepPartial<typeof en> = {
   a: 'fr-a',
   b: 'fr-b',
@@ -27,6 +37,11 @@ const fr: DeepPartial<typeof en> = {
       b: 'fr-ccb'
     }
   }
+}
+
+const fr2: DeepPartial<typeof en2> = {
+  a: 'fr-a2',
+  d: 'fr-d'
 }
 
 const de: DeepPartial<typeof en> = {
@@ -87,4 +102,16 @@ test('german', () => {
   expect(i18n.t('mustache', { name: 'Mark' })).toBe('Hallo Mark !')
   // @ts-expect-error
   expect(i18n.t('made.up.path')).toBe('made.up.path')
+})
+
+test('extend & merge dictionary', () => {
+  const i18n2 = i18n.extendDictionary('en', en2)
+  expect(i18n2.t('a')).toBe('en-a2')
+  expect(i18n2.t('d')).toBe('en-d')
+  expect(i18n2.t('c.a')).toBe('en-ca')
+  expect(i18n2.t('c.c.d')).toBe('en-ccd')
+  i18n2.mergeDictionary('fr', fr2)
+  i18n2.setLocale('fr')
+  expect(i18n2.t('a')).toBe('fr-a2')
+  expect(i18n2.t('d')).toBe('fr-d')
 })

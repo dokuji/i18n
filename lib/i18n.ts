@@ -2,6 +2,7 @@ import Mustache from 'mustache'
 import { getIn } from './getIn'
 import { iso6391, Locale, LocaleCode } from './locales'
 import { DeepPartial, DottedPaths, Dictionaries, Dictionary } from './types'
+import _merge from 'lodash.merge'
 
 export function getLocale (l: Locale = 'en'): LocaleCode {
   // @ts-expect-error
@@ -41,6 +42,27 @@ export class I18n<T extends Dictionary> {
     } else {
       this.dictionaries[locale] = d
     }
+  }
+
+  mergeDictionary (l: Locale, d: DeepPartial<T> | T) {
+    const locale = this.getLocale(l)
+    this.dictionaries[locale] = _merge(this.dictionaries[locale] ?? {}, d)
+  }
+
+  /**
+   * Create a new I18n instance and extend the base dictionary
+   * @param l
+   * @param d
+   * @throws
+   */
+  extendDictionary<U extends Dictionary> (l: Locale, d: U): I18n<T & U> {
+    const locale = this.getLocale(l)
+    if (locale !== this.defaultLocale) {
+      throw new Error(`dictionary can only be extended with the default locale: "${this.defaultLocale}"`)
+    }
+    // this.dictionaries[locale] =
+    // @ts-expect-error
+    return new I18n(locale, _merge(this.dictionaries[locale] ?? {}, d))
   }
 
   t (path: DottedPaths<T>): string
