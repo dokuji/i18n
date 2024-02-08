@@ -1,19 +1,20 @@
 {
   "name": "@dokuji/i18n",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "author": "Steven Salaun",
   "license": "MIT",
   "files": [
     "dist"
   ],
-  "main": "./dist/i18n.umd.js",
-  "module": "./dist/i18n.es.js",
+  "type": "module",
+  "main": "./dist/i18n.umd.cjs",
+  "module": "./dist/i18n.js",
   "types": "./dist/main.d.ts",
   "exports": {
     ".": {
       "types": "./dist/main.d.ts",
-      "import": "./dist/i18n.es.js",
-      "require": "./dist/i18n.umd.js"
+      "import": "./dist/i18n.js",
+      "require": "./dist/i18n.umd.cjs"
     }
   },
   "scripts": {
@@ -37,7 +38,7 @@
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
     "typescript": "^4.5.4",
-    "vite": "^2.9.5",
+    "vite": "^5.1.0",
     "vite-plugin-dts": "^1.1.1"
   },
   "dependencies": {
