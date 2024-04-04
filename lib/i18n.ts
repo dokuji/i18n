@@ -35,6 +35,20 @@ export class I18n<T extends Dictionary> {
     return this._locale
   }
 
+  /**
+   * Duplicate the instace and set a new default locale
+   *
+   * Meant to be used in server side rendering
+   */
+  duplicateWithLocale(l: Locale) {
+    const newI18n = Object.assign(
+      Object.create(Object.getPrototypeOf(this)),
+      this
+    );
+    newI18n.setLocale(l)
+    return newI18n
+  }
+
   addDictionary (l: Locale, d: DeepPartial<T> | T, override: boolean = false) {
     const locale = this.getLocale(l)
     if (!override && this.dictionaries[locale] != null) {

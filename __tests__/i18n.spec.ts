@@ -115,3 +115,12 @@ test('extend & merge dictionary', () => {
   expect(i18n2.t('a')).toBe('fr-a2')
   expect(i18n2.t('d')).toBe('fr-d')
 })
+
+test('duplicate', () => {
+  i18n.setLocale('en')
+  const dupped = i18n.duplicateWithLocale('fr')
+  expect(dupped instanceof I18n).toBe(true)
+  expect(dupped.locale).toBe('fr')
+  expect(dupped.t('a')).toBe('fr-a')
+  expect(i18n.locale).toBe('en')
+})
